@@ -4,12 +4,13 @@ import math
 
 class Circle:
 
- radius = 10
+ def __init__(self, radius):
+        self.radius = radius  
 
  def get_area(self):
         return math.pi * (self.radius ** 2)
  
-my_circle = Circle()  
+my_circle = Circle(5)  
 print("Radius:", my_circle.radius)       
 print("Area:", my_circle.get_area())     
 
