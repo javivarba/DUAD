@@ -11,4 +11,4 @@ my_list = [4,2,1]
 bubble_sort(my_list)
 
 
-#Big O analisis = O(n²)
+#Big O analisis = O(n)
