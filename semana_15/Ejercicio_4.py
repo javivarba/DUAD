@@ -36,4 +36,4 @@ def generate_list_trios(list_a, list_b, list_c):
 # n= len(list_a)
 # m= len (list_b)
 # k= len (list_c)
-# Big O Analisis, basado en las 3 variantes
+# Big O Analisis, basado en las 3 variantes: O(n × m × k)
