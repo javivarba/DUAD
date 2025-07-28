@@ -15,8 +15,8 @@ def load_tasks():
         with open(TASKS_FILE, 'r') as file:
             return json.load(file)
     except (json.JSONDecodeError, IOError) as e:
-        print(f"Error loading tasks: {e}")
-        return []
+        app.logger.error(f"[ERROR] Failed to load tasks: {e}")
+        raise Exception("Could not read tasks from storage.")
 
 def save_tasks(tasks):
     """Save tasks to JSON file with error handling."""
@@ -24,14 +24,14 @@ def save_tasks(tasks):
         with open(TASKS_FILE, 'w') as file:
             json.dump(tasks, file, indent=4)
     except IOError as e:
-        print(f"Error saving tasks: {e}")
+        app.logger.error(f"[ERROR] Failed to save tasks: {e}")
+        raise Exception("Could not save task to storage.")
 
 def validate_task(data):
     """Validate required fields and normalize the input."""
     required_fields = ['id', 'title', 'description', 'status']
     valid_statuses = ['To Do', 'In Progress', 'Completed']
 
-    # Normalize values
     data['id'] = str(data.get('id', '')).strip()
     data['status'] = str(data.get('status', '')).strip().title()
 
@@ -48,64 +48,71 @@ def validate_task(data):
 
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
-    """Return all tasks, with optional status filter."""
-    tasks = load_tasks()
-    status_filter = request.args.get('status')
+    try:
+        tasks = load_tasks()
+        status_filter = request.args.get('status')
 
-    if status_filter:
-        status_filter = status_filter.strip().lower()
-        tasks = [task for task in tasks if task['status'].lower() == status_filter]
+        if status_filter:
+            status_filter = status_filter.strip().lower()
+            tasks = [task for task in tasks if task['status'].lower() == status_filter]
 
-    return jsonify(tasks), 200
+        return jsonify(tasks), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/tasks', methods=['POST'])
 def create_task():
-    """Create a new task with validations."""
-    tasks = load_tasks()
-    data = request.get_json()
+    try:
+        tasks = load_tasks()
+        data = request.get_json()
 
-    message, valid = validate_task(data)
-    if not valid:
-        return jsonify({'error': message}), 400
+        message, valid = validate_task(data)
+        if not valid:
+            return jsonify({'error': message}), 400
 
-    # Ensure ID is unique
-    if any(str(task['id']) == str(data['id']) for task in tasks):
-        return jsonify({'error': 'Task ID already exists.'}), 400
+        if any(str(task['id']) == str(data['id']) for task in tasks):
+            return jsonify({'error': 'Task ID already exists.'}), 400
 
-    tasks.append(data)
-    save_tasks(tasks)
-    return jsonify({'message': 'Task created successfully.'}), 201
+        tasks.append(data)
+        save_tasks(tasks)
+        return jsonify({'message': 'Task created successfully.'}), 201
+    except Exception:
+        return jsonify({'error': 'Task could not be created due to an internal error.'}), 500
 
 @app.route('/tasks/<task_id>', methods=['PUT'])
 def update_task(task_id):
-    """Update an existing task after validating new data."""
-    tasks = load_tasks()
-    data = request.get_json()
+    try:
+        tasks = load_tasks()
+        data = request.get_json()
 
-    for task in tasks:
-        if str(task['id']) == str(task_id):
-            updated_task = {**task, **data}
-            message, valid = validate_task(updated_task)
-            if not valid:
-                return jsonify({'error': message}), 400
+        for task in tasks:
+            if str(task['id']) == str(task_id):
+                updated_task = {**task, **data}
+                message, valid = validate_task(updated_task)
+                if not valid:
+                    return jsonify({'error': message}), 400
 
-            task.update(updated_task)
-            save_tasks(tasks)
-            return jsonify({'message': 'Task updated successfully.'}), 200
+                task.update(updated_task)
+                save_tasks(tasks)
+                return jsonify({'message': 'Task updated successfully.'}), 200
 
-    return jsonify({'error': 'Task not found.'}), 404
+        return jsonify({'error': 'Task not found.'}), 404
+    except Exception:
+        return jsonify({'error': 'Task could not be updated due to an internal error.'}), 500
 
 @app.route('/tasks/<task_id>', methods=['DELETE'])
 def delete_task(task_id):
-    """Delete a task by ID."""
-    tasks = load_tasks()
-    updated_tasks = [task for task in tasks if str(task['id']) != str(task_id)]
+    try:
+        tasks = load_tasks()
+        updated_tasks = [task for task in tasks if str(task['id']) != str(task_id)]
 
-    if len(updated_tasks) == len(tasks):
-        return jsonify({'error': 'Task not found.'}), 404
+        if len(updated_tasks) == len(tasks):
+            return jsonify({'error': 'Task not found.'}), 404
 
-    save_tasks(updated_tasks)
-    return jsonify({'message': 'Task deleted successfully.'}), 200
+        save_tasks(updated_tasks)
+        return jsonify({'message': 'Task deleted successfully.'}), 200
+    except Exception:
+        return jsonify({'error': 'Task could not be deleted due to an internal error.'}), 500
 
 # ---------------------- Main App ----------------------
 
