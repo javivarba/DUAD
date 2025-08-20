@@ -1,4 +1,4 @@
--- SQLite
+-- SQLite # Obtenga todos los libros y sus autores, incluyendo aquellos sin autor
 SELECT 
   b.ID   AS BookID,
   b.Name AS Book,

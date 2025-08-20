@@ -1,4 +1,4 @@
--- SQLite
+-- SQLite # Obtenga todos los clientes que no han rentado ningún libro         
 SELECT 
   c.ID   AS CustomerID,
   c.Name AS Customer,

@@ -1,4 +1,4 @@
--- SQLite
+-- SQLite # Obtenga todos los libros que no han sido rentados
 SELECT 
   b.ID   AS BookID,
   b.Name AS Book
