@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Salary",
+        "amount": 5000.0,
+        "category": "Regular Income",
+        "is_income": true
+    },
+    {
+        "title": "Groceries",
+        "amount": 1000.0,
+        "category": "Fix Expenses",
+        "is_income": false
+    },
+    {
+        "title": "Fishing Lures",
+        "amount": 200.0,
+        "category": "Fishing",
+        "is_income": false
+    }
+]

@@ -1,0 +1,31 @@
+Características Implementadas:
+1. PKs Auto-generadas:
+
+Para tablas de relación (factura_productos, carritos_compras): INTEGER PRIMARY KEY AUTOINCREMENT
+Para códigos de negocio (P001, F001): Mantuve TEXT PRIMARY KEY ya que son códigos alfanuméricos
+
+2. Tipos de Datos Adecuados:
+
+TEXT para códigos, nombres, emails (No VARCHAR por ser SQLite, es lo mismo)
+DECIMAL(10,2) para precios y montos (No Decimal por ser SQLite y almacenarse como TEXT) 
+DATE para fechas
+INTEGER para cantidades 
+
+3. Limitantes de SQLite Documentadas:
+Limitante Principal: SQLite solo permite AUTOINCREMENT en columnas INTEGER, no en TEXT.
+Solución: Usé una estrategia híbrida:
+
+IDs internos auto-generados para relaciones
+Códigos de negocio como PKs de texto para productos y facturas
+
+4. Validaciones Implementadas:
+
+Precios y cantidades positivos
+Emails con formato básico
+Integridad referencial con FOREIGN KEY
+Prevención de duplicados con UNIQUE
+
+5. Estructura de Relaciones:
+
+Productos ↔ Facturas: Relación N:M a través de factura_productos
+Compradores ↔ Productos: Relación N:M a través de carritos_compras
