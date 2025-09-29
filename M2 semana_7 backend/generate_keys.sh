@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 # Script para generar llaves RSA
 # Este script SÍ se puede subir al repo
