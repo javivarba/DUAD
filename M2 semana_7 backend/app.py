@@ -68,13 +68,12 @@ def login():
         return Response(status=500)
 
 @app.route('/me')
-@require_auth(db_manager, jwt_manager)
-def me(user):
+@require_auth(jwt_manager)  # CAMBIO: Solo jwt_manager
+def me(user_info):  # CAMBIO: user_info en lugar de user
     try:
         return jsonify(
-            id=user[0],
-            username=user[1],
-            role=user[3]
+            id=user_info['id'],  # CAMBIO: Acceso como diccionario
+            role=user_info['role']  # CAMBIO: Acceso como diccionario
         )
     except Exception as e:
         print(f"Me error: {e}")
@@ -82,8 +81,8 @@ def me(user):
 
 # === ENDPOINTS DE PRODUCTOS (Solo Admin) ===
 @app.route('/products', methods=['GET'])
-@require_role('admin', db_manager, jwt_manager)
-def get_products(user):
+@require_role('admin', jwt_manager)  # CAMBIO: Solo 2 parámetros
+def get_products(user_info):  # CAMBIO: user_info en lugar de user
     try:
         products = db_manager.get_all_products()
         products_list = []
@@ -101,8 +100,8 @@ def get_products(user):
         return Response(status=500)
 
 @app.route('/products/<int:product_id>', methods=['GET'])
-@require_role('admin', db_manager, jwt_manager)
-def get_product(user, product_id):
+@require_role('admin', jwt_manager)  # CAMBIO: Solo 2 parámetros
+def get_product(user_info, product_id):  # CAMBIO: user_info
     try:
         product = db_manager.get_product_by_id(product_id)
         if product is None:
@@ -120,8 +119,8 @@ def get_product(user, product_id):
         return Response(status=500)
 
 @app.route('/products', methods=['POST'])
-@require_role('admin', db_manager, jwt_manager)
-def create_product(user):
+@require_role('admin', jwt_manager)  # CAMBIO: Solo 2 parámetros
+def create_product(user_info):  # CAMBIO: user_info
     try:
         data = request.get_json()
         if not data or not all(key in data for key in ['name', 'price', 'quantity']):
@@ -142,8 +141,8 @@ def create_product(user):
         return Response(status=500)
 
 @app.route('/products/<int:product_id>', methods=['PUT'])
-@require_role('admin', db_manager, jwt_manager)
-def update_product(user, product_id):
+@require_role('admin', jwt_manager)  # CAMBIO: Solo 2 parámetros
+def update_product(user_info, product_id):  # CAMBIO: user_info
     try:
         data = request.get_json()
         if not data:
@@ -170,8 +169,8 @@ def update_product(user, product_id):
         return Response(status=500)
 
 @app.route('/products/<int:product_id>', methods=['DELETE'])
-@require_role('admin', db_manager, jwt_manager)
-def delete_product(user, product_id):
+@require_role('admin', jwt_manager)  # CAMBIO: Solo 2 parámetros
+def delete_product(user_info, product_id):  # CAMBIO: user_info
     try:
         success = db_manager.delete_product(product_id)
         if success:
@@ -184,8 +183,8 @@ def delete_product(user, product_id):
 
 # === ENDPOINT DE COMPRA (Usuario y Admin) ===
 @app.route('/purchase', methods=['POST'])
-@require_auth(db_manager, jwt_manager)
-def purchase_product(user):
+@require_auth(jwt_manager)  # CAMBIO: Solo jwt_manager
+def purchase_product(user_info):  # CAMBIO: user_info
     try:
         data = request.get_json()
         if not data or not all(key in data for key in ['product_id', 'quantity']):
@@ -215,7 +214,7 @@ def purchase_product(user):
         
         # Crear factura
         invoice_id = db_manager.insert_invoice(
-            user[0],  # user_id
+            user_info['id'],  # CAMBIO: user_info['id'] en lugar de user[0]
             product[1],  # product_name
             product_price,
             quantity,
@@ -234,10 +233,10 @@ def purchase_product(user):
 
 # === ENDPOINT DE FACTURAS (Usuario y Admin) ===
 @app.route('/invoices', methods=['GET'])
-@require_auth(db_manager, jwt_manager)
-def get_invoices(user):
+@require_auth(jwt_manager)  # CAMBIO: Solo jwt_manager
+def get_invoices(user_info):  # CAMBIO: user_info
     try:
-        invoices = db_manager.get_invoices_by_user(user[0])
+        invoices = db_manager.get_invoices_by_user(user_info['id'])  # CAMBIO: user_info['id']
         invoices_list = []
         
         for inv in invoices:
@@ -255,12 +254,11 @@ def get_invoices(user):
         print(f"Get invoices error: {e}")
         return Response(status=500)
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
 # Test JWT (temporal)
 @app.route('/test-jwt')
 def test_jwt():
     test_token = jwt_manager.encode({'id': 1, 'role': 'admin'})
     return jsonify(token_generated=test_token is not None, token=test_token)
+
+if __name__ == '__main__':
+    app.run(debug=True)
