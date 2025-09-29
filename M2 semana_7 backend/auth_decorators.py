@@ -1,7 +1,11 @@
 from functools import wraps
 from flask import request, Response, jsonify
 
-def require_auth(db_manager, jwt_manager):
+def require_auth(jwt_manager):
+    """
+    Decorador simplificado que solo valida el token JWT
+    No necesita consultar la BD
+    """
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
@@ -16,14 +20,15 @@ def require_auth(db_manager, jwt_manager):
                 if decoded is None:
                     return Response(status=401)  # Invalid token
                 
-                user_id = decoded['id']
-                user = db_manager.get_user_by_id(user_id)
-                
-                if user is None:
-                    return Response(status=401)
+                # En lugar de ir a la BD, creamos un objeto user simple
+                # con la información del token
+                user_info = {
+                    'id': decoded['id'],
+                    'role': decoded.get('role', 'user')
+                }
                 
                 # Pasar user info a la función
-                return f(user, *args, **kwargs)
+                return f(user_info, *args, **kwargs)
                 
             except Exception as e:
                 print(f"Auth error: {e}")
@@ -32,7 +37,11 @@ def require_auth(db_manager, jwt_manager):
         return decorated_function
     return decorator
 
-def require_role(required_role, db_manager, jwt_manager):
+def require_role(required_role, jwt_manager):
+    """
+    Decorador para verificar roles usando solo el JWT
+    No consulta la BD
+    """
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
@@ -47,16 +56,19 @@ def require_role(required_role, db_manager, jwt_manager):
                 if decoded is None:
                     return Response(status=401)
                 
-                user_id = decoded['id']
-                user = db_manager.get_user_by_id(user_id)
+                # Verificar el rol directamente del token decodificado
+                user_role = decoded.get('role', 'user')
                 
-                if user is None:
-                    return Response(status=401)
-                
-                if user[3] != required_role:  # user[3] es el role
+                if user_role != required_role:
                     return Response(status=403)  # Forbidden
                 
-                return f(user, *args, **kwargs)
+                # Crear objeto user_info con datos del token
+                user_info = {
+                    'id': decoded['id'],
+                    'role': user_role
+                }
+                
+                return f(user_info, *args, **kwargs)
                 
             except Exception as e:
                 print(f"Auth error: {e}")
