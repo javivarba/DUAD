@@ -5,6 +5,9 @@ config.py
 keys/
 *.pem
 
+# Archivos con credenciales
+main.py
+
 # Python
 __pycache__/
 *.py[cod]
