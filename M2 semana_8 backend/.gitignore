@@ -17,11 +17,6 @@ __pycache__/
 env/
 venv/
 
-# Archivos de test temporales
-test_cache.py
-test_db.py
-test_redis.py
-
 # IDEs
 .vscode/
 .idea/
