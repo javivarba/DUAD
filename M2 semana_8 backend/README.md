@@ -24,3 +24,31 @@ API REST para gestión de inventario y ventas de frutas con autenticación JWT u
 ```bash
 git clone <tu-repositorio>
 cd fruits-api
+
+## Arquitectura del Proyecto
+
+El proyecto sigue una **arquitectura en capas** para mantener el código organizado y escalable:
+
+### Estructura de Carpetas
+
+proyecto/
+├── models/              # Definiciones de tablas (SQLAlchemy)
+│   └── db.py
+├── repositories/        # Capa de acceso a datos (CRUD puro)
+│   ├── user_repository.py
+│   ├── product_repository.py
+│   └── invoice_repository.py
+├── services/            # Lógica de negocio y caché
+│   ├── auth_service.py
+│   ├── product_service.py
+│   └── purchase_service.py
+├── routes/              # Endpoints HTTP (Flask Blueprints)
+│   ├── auth_routes.py
+│   ├── product_routes.py
+│   └── invoice_routes.py
+├── middleware/          # Decoradores y middleware
+│   └── auth_decorators.py
+└── utils/               # Utilidades
+├── cache_manager.py
+└── JWT_Manager.py
+
