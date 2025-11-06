@@ -1,0 +1,28 @@
+# Credenciales de Redis
+config.py
+
+# Llaves RSA
+keys/
+*.pem
+
+# Archivos con credenciales
+main.py
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
