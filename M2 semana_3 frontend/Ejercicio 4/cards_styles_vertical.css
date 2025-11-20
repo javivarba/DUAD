@@ -1,0 +1,189 @@
+/* ===================================
+   RESET Y ESTILOS GENERALES
+   =================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #F5F5F5;
+    padding: 60px 20px;
+    line-height: 1.6;
+}
+
+/* ===================================
+   CONTENEDOR DE CARDS
+   =================================== */
+
+.cards-container {
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+/* ===================================
+   CARD INDIVIDUAL
+   =================================== */
+
+.card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Efecto hover en la card completa */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ===================================
+   IMAGEN DE LA CARD
+   =================================== */
+
+.card-image {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto zoom en la imagen al hacer hover */
+.card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+/* ===================================
+   CONTENIDO DE LA CARD
+   =================================== */
+
+.card-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Título de la card */
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2C3E50;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+/* Descripción de la card */
+.card-description {
+    font-size: 0.95rem;
+    color: #5A6C7D;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+/* Enlace "read more" */
+.card-link {
+    color: #3498DB;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-block;
+    transition: color 0.2s ease;
+    align-self: flex-start;
+}
+
+.card-link:hover {
+    color: #2874A6;
+    text-decoration: underline;
+}
+
+/* ===================================
+   RESPONSIVE - TABLETS
+   =================================== */
+
+@media (max-width: 992px) {
+    .cards-container {
+        max-width: 600px;
+    }
+}
+
+/* ===================================
+   RESPONSIVE - MÓVILES
+   =================================== */
+
+@media (max-width: 640px) {
+    body {
+        padding: 30px 15px;
+    }
+    
+    .cards-container {
+        max-width: 100%;
+        gap: 30px;
+    }
+    
+    .card-image {
+        height: 200px;
+    }
+    
+    .card-content {
+        padding: 20px;
+    }
+    
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .card-description {
+        font-size: 0.9rem;
+    }
+}
+
+/* ===================================
+   ANIMACIONES
+   =================================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Delay progresivo para cada card */
+.card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.card:nth-child(3) {
+    animation-delay: 0.3s;
+}

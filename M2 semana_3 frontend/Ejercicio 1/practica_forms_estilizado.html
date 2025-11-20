@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Votación</title>
+    <!-- 👇 ESTA ES LA LÍNEA QUE FALTABA -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Formulario de Votación</h1>
+    <p>Complete la siguiente información para emitir su voto</p>
+    
+    <form action="https://dummyjson.com/test" method="POST">
+        <h3>Información del Votante</h3>
+        
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre completo" required>
+        
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+        
+        <label for="identificacion">Número de Identificación:</label>
+        <input type="text" id="identificacion" name="identificacion" placeholder="Ingrese su cédula" required>
+        
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="8888-8888" required>
+        
+        <h3>Seleccione su Candidato</h3>
+        
+        <label for="candidato">Candidato preferido:</label>
+        <select id="candidato" name="candidato" required>
+            <option value="">Seleccione un candidato</option>
+            <option value="Candidato #1">Candidato #1</option>
+            <option value="Candidato #2">Candidato #2</option>
+            <option value="Candidato #3">Candidato #3</option>
+        </select>
+        
+        <input type="submit" value="Confirmar Voto">
+    </form>
+    
+</body>
+</html>
