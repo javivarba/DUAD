@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billboard Hot 100™</title>
+    <link rel="stylesheet" href="billboard-styles.css">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <!-- Contenedor principal -->
+    <div class="billboard-container">
+        
+        <!-- Header con título y fecha -->
+        <div class="billboard-header">
+            <h1 class="billboard-title">Billboard Hot 100™</h1>
+            <div class="week-date">WEEK OF FEBRUARY 20, 2025</div>
+        </div>
+        
+        <!-- Tabla del Hot 100 -->
+        <table class="hot100-table">
+            
+            <!-- Encabezado de la tabla -->
+            <thead>
+                <tr class="table-header">
+                    <th class="col-rank">THIS WEEK</th>
+                    <th class="col-song" colspan="3"></th>
+                    <th class="col-award">
+                        AWARD
+                        <div class="tooltip-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                    </th>
+                    <th class="col-last">LAST<br>WEEK</th>
+                    <th class="col-peak">PEAK<br>POS.</th>
+                    <th class="col-weeks">WKS ON<br>CHART</th>
+                </tr>
+            </thead>
+            
+            <!-- Cuerpo de la tabla -->
+            <tbody>
+                
+                <!-- Fila 2 -->
+                <tr class="chart-row">
+                    <td class="rank-cell">
+                        <div class="rank-number">1</div>
+                    </td>
+                    <td class="image-cell">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop" alt="Album cover" class="album-cover">
+                    </td>
+                    <td class="trend-cell">
+                        <div class="trend-icon neutral">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </td>
+                    <td class="info-cell">
+                        <div class="song-title">Lovin On Me</div>
+                        <div class="artist-name">Jack Harlow</div>
+                    </td>
+                    <td class="action-cell">
+                        <button class="add-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </td>
+                    <td class="stat-cell">1</td>
+                    <td class="stat-cell">1</td>
+                    <td class="stat-cell">12</td>
+                </tr>
+                
+                <!-- Fila 3 -->
+                <tr class="chart-row">
+                    <td class="rank-cell">
+                        <div class="rank-number">2</div>
+                    </td>
+                    <td class="image-cell">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&h=200&fit=crop" alt="Album cover" class="album-cover">
+                    </td>
+                    <td class="trend-cell">
+                        <div class="trend-icon neutral">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </td>
+                    <td class="info-cell">
+                        <div class="song-title">Cruel Summer</div>
+                        <div class="artist-name">Taylor Swift</div>
+                    </td>
+                    <td class="action-cell">
+                        <button class="add-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </td>
+                    <td class="stat-cell">2</td>
+                    <td class="stat-cell">1</td>
+                    <td class="stat-cell">39</td>
+                </tr>
+                
+                <!-- Fila 4 -->
+                <tr class="chart-row">
+                    <td class="rank-cell">
+                        <div class="rank-number">3</div>
+                    </td>
+                    <td class="image-cell">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&h=200&fit=crop" alt="Album cover" class="album-cover">
+                    </td>
+                    <td class="trend-cell">
+                        <div class="trend-icon up">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                    </td>
+                    <td class="info-cell">
+                        <div class="song-title">Lose Control</div>
+                        <div class="artist-name">Teddy Swims</div>
+                    </td>
+                    <td class="action-cell">
+                        <button class="add-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="award-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </td>
+                    <td class="stat-cell">4</td>
+                    <td class="stat-cell">3</td>
+                    <td class="stat-cell">25</td>
+                </tr>
+                
+                <!-- Fila 5 -->
+                <tr class="chart-row">
+                    <td class="rank-cell">
+                        <div class="rank-number">4</div>
+                    </td>
+                    <td class="image-cell">
+                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=200&h=200&fit=crop" alt="Album cover" class="album-cover">
+                    </td>
+                    <td class="trend-cell">
+                        <div class="trend-icon up">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                    </td>
+                    <td class="info-cell">
+                        <div class="song-title">Paint The Town Red</div>
+                        <div class="artist-name">Doja Cat</div>
+                    </td>
+                    <td class="action-cell">
+                        <button class="add-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </td>
+                    <td class="stat-cell">6</td>
+                    <td class="stat-cell">1</td>
+                    <td class="stat-cell">28</td>
+                </tr>
+                
+                <!-- Fila 6 -->
+                <tr class="chart-row">
+                    <td class="rank-cell">
+                        <div class="rank-number">5</div>
+                    </td>
+                    <td class="image-cell">
+                        <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=200&h=200&fit=crop" alt="Album cover" class="album-cover">
+                    </td>
+                    <td class="trend-cell">
+                        <div class="trend-icon down">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                    </td>
+                    <td class="info-cell">
+                        <div class="song-title">Greedy</div>
+                        <div class="artist-name">Tate McRae</div>
+                    </td>
+                    <td class="action-cell">
+                        <button class="add-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </td>
+                    <td class="stat-cell">3</td>
+                    <td class="stat-cell">3</td>
+                    <td class="stat-cell">18</td>
+                </tr>
+                
+                <!-- Fila 7 -->
+                <tr class="chart-row">
+                    <td class="rank-cell">
+                        <div class="rank-number">6</div>
+                    </td>
+                    <td class="image-cell">
+                        <img src="https://images.unsplash.com/photo-1476673160081-cf065607f449?w=200&h=200&fit=crop" alt="Album cover" class="album-cover">
+                    </td>
+                    <td class="trend-cell">
+                        <div class="trend-icon neutral">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </td>
+                    <td class="info-cell">
+                        <div class="song-title">Stick Season</div>
+                        <div class="artist-name">Noah Kahan</div>
+                    </td>
+                    <td class="action-cell">
+                        <button class="add-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </td>
+                    <td class="stat-cell">6</td>
+                    <td class="stat-cell">6</td>
+                    <td class="stat-cell">31</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
+    </div>
+    
+</body>
+</html>
