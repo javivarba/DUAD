@@ -1,0 +1,77 @@
+/* Importar todos los estilos */
+@import url(navbar.css);
+@import url(banner.css);
+@import url(catalog.css);
+@import url(footer.css);
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: #ffffff;
+}
+
+/* Contenedor principal - como en el ejercicio guiado */
+.contain {
+    padding: 0 10%;
+}
+
+/* Botones reutilizables */
+.btn-primary {
+    background-color: #FF6B9D;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e55a88;
+}
+
+.btn-dark {
+    background-color: #222222;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-dark:hover {
+    background-color: #444444;
+}
+
+.btn-send {
+    background-color: #FF6B9D;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-send:hover {
+    background-color: #e55a88;
+}
