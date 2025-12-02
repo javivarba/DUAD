@@ -1,0 +1,69 @@
+/* NAVBAR - Usando Flexbox para alinear elementos horizontalmente */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    background-color: white;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Lado izquierdo del navbar */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Logo */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FF6B9D;
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+.logo:hover {
+    color: #e55a88;
+}
+
+/* Links de navegación */
+.nav-link {
+    text-decoration: none;
+    color: #666666;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #222222;
+    border-bottom: 2px solid #222222;
+}
+
+/* Lado derecho del navbar */
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Barra de búsqueda */
+.search-box {
+    padding: 10px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 250px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-box:focus {
+    border-color: #FF6B9D;
+}
+
+.search-box::placeholder {
+    color: #999999;
+}
