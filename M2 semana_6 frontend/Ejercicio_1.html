@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio DOM - Lista</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #add-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        #clear-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+        ol {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    
+    <div>
+        <button id="add-btn">Agregar Elemento</button>
+        <button id="clear-btn">Limpiar Lista</button>
+    </div>
+
+    <ol id="lista">
+        <li>Elemento inicial</li>
+    </ol>
+
+    <script>
+        // Obtenemos los elementos del DOM
+        const addButton = document.getElementById('add-btn');
+        const clearButton = document.getElementById('clear-btn');
+        const lista = document.getElementById('lista');
+
+        // Contador para enumerar los elementos
+        let contador = 1;
+
+        // Función para agregar un elemento a la lista
+        const agregarElemento = () => {
+            const nuevoItem = document.createElement('li');
+            nuevoItem.innerHTML = `Nuevo elemento ${contador}`;
+            lista.appendChild(nuevoItem);
+            contador++;
+        };
+
+        // Función para limpiar toda la lista
+        const limpiarLista = () => {
+            lista.innerHTML = '';
+            contador = 1;
+        };
+
+        // Agregamos los event listeners a los botones
+        addButton.addEventListener('click', agregarElemento);
+        clearButton.addEventListener('click', limpiarLista);
+    </script>
+</body>
+</html>
