@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback - Event Listener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #myParagraph {
+            padding: 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.6;
+            transition: background-color 0.3s ease;
+            /* Color inicial */
+            background-color: #f0f0f0;
+        }
+
+        #changeColorBtn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 30px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #changeColorBtn:hover {
+            background-color: #45a049;
+        }
+
+        #changeColorBtn:active {
+            transform: scale(0.98);
+        }
+
+        .info {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Callback con Event Listener</h1>
+
+    <!-- Párrafo que cambiará de color -->
+    <p id="myParagraph">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod 
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+
+    <!-- Botón -->
+    <button id="changeColorBtn">Cambiar Color 🎲</button>
+
+    <div class="info">
+        <p><strong>💡 Concepto:</strong> El botón usa <code>addEventListener</code> con un callback</p>
+    </div>
+
+    <script>
+        // ============================================
+        // CALLBACKS CON EVENT LISTENERS
+        // ============================================
+        
+        // Array de colores disponibles
+        const colors = ['red', 'blue', 'green', 'yellow', 'cyan', 'pink'];
+        
+        // Obtener referencias a los elementos
+        const paragraph = document.getElementById('myParagraph');
+        const button = document.getElementById('changeColorBtn');
+        
+        // ============================================
+        // CALLBACK FUNCTION
+        // ============================================
+        // Esta función será llamada cada vez que se haga click
+        function changeColor() {
+            // Generar índice aleatorio
+            const randomIndex = Math.floor(Math.random() * colors.length);
+            
+            // Obtener color aleatorio
+            const randomColor = colors[randomIndex];
+            
+            // Cambiar el color de fondo del párrafo
+            paragraph.style.backgroundColor = randomColor;
+            
+            // Mostrar en consola (abre DevTools con F12 para verlo)
+            console.log(`Color cambiado a: ${randomColor}`);
+        }
+        
+        // ============================================
+        // EVENT LISTENER - AQUÍ USAMOS EL CALLBACK
+        // ============================================
+        // addEventListener recibe dos parámetros:
+        // 1. El evento a escuchar ('click')
+        // 2. El callback (la función changeColor)
+        
+        button.addEventListener('click', changeColor);
+        
+        // NOTA: Observa que NO usamos changeColor() con paréntesis
+        // Si pusiéramos changeColor(), la función se ejecutaría inmediatamente
+        // Al poner solo changeColor, le pasamos la REFERENCIA de la función
+        // para que el botón la llame cuando ocurra el click
+        
+        console.log('✅ Event listener agregado al botón');
+        console.log('💡 El callback changeColor se ejecutará cada vez que hagas click');
+    </script>
+</body>
+</html>

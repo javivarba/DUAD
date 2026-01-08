@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .loading {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            text-align: center;
+        }
+
+        .success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+        }
+
+        .error {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+
+        .task-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2d2d2d;
+            line-height: 1.4;
+        }
+
+        .task-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .completed {
+            background: #28a745;
+            color: white;
+        }
+
+        .pending {
+            background: #ffc107;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Sistema de Tickets - Soporte IT</h1>
+        
+        <div class="search-box">
+            <input 
+                type="number" 
+                id="taskId" 
+                placeholder="ID del ticket (1-200)"
+                value="25"
+                min="1"
+            >
+            <button onclick="searchTask()">Buscar Ticket</button>
+        </div>
+
+        <p style="color: #666; font-size: 14px;">
+            💡 Prueba diferentes IDs para ver distintas tareas de soporte
+        </p>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        // Array de tareas reales de soporte técnico
+        const supportTasks = [
+            "Reseteo de contraseña de usuario",
+            "Instalación de Microsoft Office",
+            "Configuración de correo electrónico",
+            "Problema con impresora de red",
+            "Actualización de antivirus corporativo",
+            "Acceso a carpetas compartidas",
+            "Instalación de VPN corporativa",
+            "Backup de archivos importantes",
+            "Configuración de acceso remoto",
+            "Limpieza de virus en equipo",
+            "Actualización de Windows 10/11",
+            "Instalación de software específico",
+            "Problemas de conectividad WiFi",
+            "Configuración de doble monitor",
+            "Migración a nueva computadora",
+            "Recovery de datos perdidos",
+            "Configuración de firma digital",
+            "Instalación de certificados SSL",
+            "Problemas con Teams/Zoom",
+            "Configuración de SharePoint",
+            "Reseteo de contraseña de AD",
+            "Instalación de drivers de audio",
+            "Problemas con Excel/Word",
+            "Configuración de permisos de red",
+            "Actualización de Adobe Reader",
+            "Instalación de impresora local",
+            "Configuración de escáner",
+            "Acceso a servidor de archivos",
+            "Problemas con Outlook",
+            "Instalación de Chrome/Firefox",
+            "Configuración de proxy",
+            "Backup de base de datos",
+            "Migración de correo electrónico",
+            "Configuración de OneDrive",
+            "Problemas con licencias de software",
+            "Instalación de Python/Node.js",
+            "Configuración de Git",
+            "Acceso a repositorio interno",
+            "Problemas de rendimiento de PC",
+            "Limpieza de disco duro",
+            "Configuración de firewall",
+            "Instalación de VS Code",
+            "Problemas con navegador",
+            "Configuración de autenticación 2FA",
+            "Instalación de PostgreSQL",
+            "Configuración de Docker",
+            "Acceso a VPN de desarrollo",
+            "Problemas con IDE",
+            "Configuración de base de datos local",
+            "Instalación de herramientas dev"
+        ];
+
+        // Función para obtener tarea basada en el ID
+        function getTaskName(taskId) {
+            // Usar módulo para reciclar el array de tareas
+            const index = (taskId - 1) % supportTasks.length;
+            return supportTasks[index];
+        }
+
+        async function getTask(taskId) {
+            const response = await fetch(
+                `https://jsonplaceholder.typicode.com/todos/${taskId}`
+            );
+            
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}`);
+            }
+            
+            return await response.json();
+        }
+
+        async function searchTask() {
+            const taskId = document.getElementById('taskId').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!taskId || taskId < 1) {
+                alert('Ingresa un ID válido');
+                return;
+            }
+            
+            // Mostrar loading
+            resultDiv.className = 'result loading show';
+            resultDiv.innerHTML = '<p>⏳ Buscando ticket...</p>';
+            
+            try {
+                // Buscar tarea
+                const task = await getTask(taskId);
+                
+                // Obtener nombre de tarea real
+                const taskName = getTaskName(task.id);
+                
+                // Mostrar resultado
+                resultDiv.className = 'result success show';
+                resultDiv.innerHTML = `
+                    <div class="task-title">🎫 ${taskName}</div>
+                    <p><strong>Ticket ID:</strong> #${task.id}</p>
+                    <p><strong>Asignado a:</strong> Técnico ${task.userId}</p>
+                    <span class="task-status ${task.completed ? 'completed' : 'pending'}">
+                        ${task.completed ? '✅ Completado' : '⏳ En Progreso'}
+                    </span>
+                `;
+                
+            } catch (error) {
+                // Mostrar error
+                resultDiv.className = 'result error show';
+                resultDiv.innerHTML = `
+                    <strong>❌ Error</strong>
+                    <p>No se encontró el ticket con ID ${taskId}</p>
+                `;
+            }
+        }
+
+        // Buscar con Enter
+        document.getElementById('taskId').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchTask();
+        });
+
+        // Cargar ticket #25 al iniciar
+        window.onload = () => searchTask();
+    </script>
+</body>
+</html>
