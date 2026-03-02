@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios Ejercicio 3 - Obtener Usuario por ID</title>
+    
+  
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0b7dda;
+        }
+        .example-id {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejercicios de Axios</h1>
+    
+    <section>
+        <h2>Ejercicio 3: Obtener usuario por ID (GET)</h2>
+        
+        <p><strong>IDs de prueba:</strong> 1, 2, 3, 4, 5, 6, 7</p>
+        <p><strong>ID del ejercicio 2:</strong></p>
+        <div class="example-id">
+            ff8081819c5368bb019c8d591fee5a4f
+        </div>
+        <p><strong>Para probar 404:</strong> 999999</p>
+        
+        <form id="getUserForm">
+            <div>
+                <label for="userId">ID del usuario:</label>
+                <input type="text" id="userId" placeholder="Ej: 1, 2, 3..." required>
+            </div>
+            <button type="submit">Buscar Usuario</button>
+        </form>
+        
+        <div id="getResult"></div>
+    </section>
+    
+    <script src="Axios_Ejercicio_3.js"></script>
+</body>
+</html>
