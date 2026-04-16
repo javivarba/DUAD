@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUAD To-Do — App</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-brand">DUAD <span>To-Do</span></div>
+  <div class="nav-right">
+    <div class="nav-user">Hola, <strong id="user-name">...</strong></div>
+    <div class="nav-links">
+      <a href="about.html" class="nav-link">About</a>
+      <button class="logout-btn" onclick="handleLogout()">Cerrar sesión</button>
+    </div>
+  </div>
+</nav>
+
+<main class="app-layout">
+
+  <div class="app-header">
+    <h1>Mis tareas <span>📋</span></h1>
+    <p id="stats-text">Cargando...</p>
+  </div>
+
+  <!-- Form nueva tarea -->
+  <div class="add-todo-card">
+    <div class="add-todo-row">
+      <input
+        type="text"
+        id="new-todo-input"
+        placeholder="¿Qué necesitas hacer?"
+        maxlength="200"
+      />
+      <button class="btn btn-primary" onclick="submitNewTodo()">+ Agregar</button>
+    </div>
+    <div class="add-todo-meta">
+      <div class="meta-field">
+        <label for="new-todo-priority">Prioridad</label>
+        <select id="new-todo-priority">
+          <option value="media">Media</option>
+          <option value="alta">Alta</option>
+          <option value="baja">Baja</option>
+        </select>
+      </div>
+      <div class="meta-field">
+        <label for="new-todo-date">Fecha límite</label>
+        <input type="date" id="new-todo-date" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all" onclick="setFilter(this)">Todas</button>
+    <button class="filter-btn" data-filter="active" onclick="setFilter(this)">Pendientes</button>
+    <button class="filter-btn" data-filter="completed" onclick="setFilter(this)">Completadas</button>
+  </div>
+
+  <ul id="todo-list"></ul>
+
+</main>
+
+<div id="loading-spinner"><div class="spinner"></div></div>
+<div id="error-toast" class="toast"></div>
+<div id="success-toast" class="toast"></div>
+
+<script src="config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/todos.js"></script>
+
+<script>
+  const currentUser = requireAuth();
+  document.getElementById('user-name').textContent = currentUser.name;
+  loadTodos(currentUser.email, 'all');
+
+  function submitNewTodo() {
+    const input    = document.getElementById('new-todo-input');
+    const priority = document.getElementById('new-todo-priority').value;
+    const dueDate  = document.getElementById('new-todo-date').value;
+    const title    = input.value.trim();
+    if (!title) return;
+    input.value = '';
+    document.getElementById('new-todo-date').value = '';
+    createTodo(title, currentUser.email, priority, dueDate);
+  }
+
+  function setFilter(btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    loadTodos(currentUser.email, btn.dataset.filter);
+  }
+
+  document.getElementById('new-todo-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submitNewTodo();
+  });
+</script>
+
+</body>
+</html>
