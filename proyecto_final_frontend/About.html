@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUAD To-Do — About</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <style>
+    .about-layout {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    .about-badge {
+      display: inline-block;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-dim);
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    .about-title {
+      font-size: 3rem;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .about-title span { color: var(--accent); }
+
+    .about-intro {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 48px;
+      max-width: 540px;
+    }
+
+    .about-section {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .about-section h3 {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .about-section p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .tech-item {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .tech-item span {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    .author-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .author-role {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: var(--font-display);
+      font-weight: 500;
+      text-decoration: none;
+      margin-top: 40px;
+      transition: var(--transition);
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ──────────────────────────────────────────────────────── -->
+<nav class="navbar">
+  <div class="nav-brand">DUAD <span>To-Do</span></div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="app.html" class="nav-link">← Mis tareas</a>
+      <button class="logout-btn" onclick="handleLogout()">Cerrar sesión</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── CONTENIDO ───────────────────────────────────────────────────── -->
+<main class="about-layout">
+
+  <div class="about-badge">Proyecto Final — Módulo 2</div>
+
+  <h1 class="about-title">
+    Sobre<br><span>DUAD To-Do</span>
+  </h1>
+
+  <p class="about-intro">
+    Aplicación de gestión de tareas desarrollada como proyecto final del 
+    Módulo de Frontend en el curso Full Stack.
+  </p>
+
+  <!-- Autor -->
+  <div class="about-section">
+    <h3>Autor</h3>
+    <p class="author-name">Javier Vargas</p>
+    <p class="author-role">Full Stack Developer Student · Program Manager</p>
+  </div>
+
+  <!-- Descripción del proyecto -->
+  <div class="about-section">
+    <h3>Descripción del proyecto</h3>
+    <p>
+      DUAD To-Do es una Single Page Application que permite a múltiples usuarios 
+      gestionar sus listas de tareas de forma independiente. Cada usuario puede 
+      crear, editar, completar y eliminar tareas. La sesión persiste entre recargas 
+      gracias a <code>localStorage</code>, y las tareas se almacenan en tiempo real 
+      usando la API pública de restful-api.dev.
+    </p>
+  </div>
+
+  <!-- Stack técnico -->
+  <div class="about-section">
+    <h3>Stack técnico</h3>
+    <div class="tech-grid">
+      <div class="tech-item">Vanilla JS <span>Lógica principal</span></div>
+      <div class="tech-item">HTML5 <span>Estructura</span></div>
+      <div class="tech-item">CSS3 <span>Estilos</span></div>
+      <div class="tech-item">Axios <span>HTTP requests</span></div>
+      <div class="tech-item">localStorage <span>Sesión & usuarios</span></div>
+      <div class="tech-item">restful-api.dev <span>API de tareas</span></div>
+      <div class="tech-item">Google Fonts <span>Syne + DM Sans</span></div>
+    </div>
+  </div>
+
+  <!-- Funcionalidades -->
+  <div class="about-section">
+    <h3>Funcionalidades implementadas</h3>
+    <p>
+      Sistema de autenticación con registro e inicio de sesión simulado en el 
+      navegador. CRUD completo de tareas con integración a API externa. 
+      Filtrado por estado (todas, pendientes, completadas). 
+      Edición inline con doble click. Protección de rutas. 
+      Diseño responsivo con tema oscuro y accesible.
+    </p>
+  </div>
+
+  <a href="app.html" class="back-link">← Volver a mis tareas</a>
+
+</main>
+
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  // También protegemos la página About — solo usuarios logueados la ven
+  requireAuth();
+</script>
+
+</body>
+</html>

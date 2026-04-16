@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DUAD To-Do — Login</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body>
+    <div class="auth-page">
+      <!-- Panel izquierdo: branding -->
+      <div class="auth-hero">
+        <div class="hero-logo">DUAD <span>To-Do</span></div>
+        <h1 class="hero-tagline">
+          Organiza tu vida,<br />
+          una tarea <span class="highlight">a la vez.</span>
+        </h1>
+        <p class="hero-sub">
+          Lleva un registro claro de tus tareas y recordatorios. Simple, rápido
+          y siempre disponible.
+        </p>
+        <div class="hero-features">
+          <div class="feature-pill">Múltiples usuarios independientes</div>
+          <div class="feature-pill">Sesión persistente entre recargas</div>
+          <div class="feature-pill">CRUD completo con API externa</div>
+        </div>
+      </div>
+
+      <!-- Panel derecho: formulario -->
+      <div class="auth-form-panel">
+        <div class="auth-form-container">
+          <h2>Bienvenido</h2>
+          <p class="auth-subtitle">
+            Inicia sesión o crea tu cuenta para continuar.
+          </p>
+
+          <!-- Tabs -->
+          <div class="auth-tabs">
+            <button class="tab-btn active" onclick="switchTab('login')">
+              Iniciar sesión
+            </button>
+            <button class="tab-btn" onclick="switchTab('register')">
+              Registrarse
+            </button>
+          </div>
+
+          <!-- Form Login -->
+          <div id="login-section" class="form-section active">
+            <div class="form-group">
+              <label for="login-email">Correo electrónico</label>
+              <input
+                type="email"
+                id="login-email"
+                placeholder="tu@correo.com"
+              />
+            </div>
+            <div class="form-group">
+              <label for="login-password">Contraseña</label>
+              <input
+                type="password"
+                id="login-password"
+                placeholder="••••••••"
+              />
+            </div>
+            <div id="login-error" class="form-error"></div>
+            <button class="btn btn-primary btn-submit" onclick="submitLogin()">
+              Iniciar sesión →
+            </button>
+            <p class="auth-divider">
+              ¿No tienes cuenta?
+              <a href="#" onclick="switchTab('register')">Regístrate</a>
+            </p>
+          </div>
+
+          <!-- Form Registro -->
+          <div id="register-section" class="form-section">
+            <div class="form-group">
+              <label for="reg-name">Nombre completo</label>
+              <input type="text" id="reg-name" placeholder="Tu nombre" />
+            </div>
+            <div class="form-group">
+              <label for="reg-email">Correo electrónico</label>
+              <input type="email" id="reg-email" placeholder="tu@correo.com" />
+            </div>
+            <div class="form-group">
+              <label for="reg-password">Contraseña</label>
+              <input
+                type="password"
+                id="reg-password"
+                placeholder="Mínimo 6 caracteres"
+              />
+            </div>
+            <div class="form-group">
+              <label for="reg-confirm">Confirmar contraseña</label>
+              <input
+                type="password"
+                id="reg-confirm"
+                placeholder="Repite tu contraseña"
+              />
+            </div>
+            <div id="register-error" class="form-error"></div>
+            <button
+              class="btn btn-primary btn-submit"
+              onclick="submitRegister()"
+            >
+              Crear cuenta →
+            </button>
+            <p class="auth-divider">
+              ¿Ya tienes cuenta?
+              <a href="#" onclick="switchTab('login')">Inicia sesión</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dependencias: storage y auth primero, luego la lógica de esta página -->
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // Al cargar la página, redirige si ya hay sesión activa
+      redirectIfLoggedIn();
+
+      // ─── TABS ────────────────────────────────────────────────────────────
+      function switchTab(tab) {
+        document.querySelectorAll(".tab-btn").forEach((btn, i) => {
+          btn.classList.toggle(
+            "active",
+            (tab === "login" && i === 0) || (tab === "register" && i === 1),
+          );
+        });
+        document
+          .getElementById("login-section")
+          .classList.toggle("active", tab === "login");
+        document
+          .getElementById("register-section")
+          .classList.toggle("active", tab === "register");
+        clearFormError("login");
+        clearFormError("register");
+      }
+
+      // ─── SUBMIT LOGIN ─────────────────────────────────────────────────────
+      function submitLogin() {
+        clearFormError("login");
+        const email = document.getElementById("login-email").value.trim();
+        const password = document.getElementById("login-password").value;
+        const result = handleLogin(email, password);
+
+        if (result.success) {
+          window.location.href = "app.html";
+        } else {
+          showFormError("login", result.message);
+        }
+      }
+
+      // ─── SUBMIT REGISTRO ──────────────────────────────────────────────────
+      function submitRegister() {
+        clearFormError("register");
+        const name = document.getElementById("reg-name").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const password = document.getElementById("reg-password").value;
+        const confirm = document.getElementById("reg-confirm").value;
+        const result = handleRegister(name, email, password, confirm);
+
+        if (result.success) {
+          window.location.href = "app.html";
+        } else {
+          showFormError("register", result.message);
+        }
+      }
+
+      // ─── ENTER KEY ────────────────────────────────────────────────────────
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const loginActive = document
+            .getElementById("login-section")
+            .classList.contains("active");
+          loginActive ? submitLogin() : submitRegister();
+        }
+      });
+
+      // ─── HELPER UI (inline porque ui.js no está cargado en esta página) ──
+      function showFormError(formId, message) {
+        const el = document.getElementById(`${formId}-error`);
+        if (el) {
+          el.textContent = message;
+          el.style.display = "block";
+        }
+      }
+      function clearFormError(formId) {
+        const el = document.getElementById(`${formId}-error`);
+        if (el) {
+          el.textContent = "";
+          el.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
