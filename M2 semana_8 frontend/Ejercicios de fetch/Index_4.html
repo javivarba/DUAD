@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 - Actualizar Dirección</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #FF9800;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #F57C00;
+        }
+        .info-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .example-id {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejercicio 4: Actualizar Dirección de Usuario</h1>
+    
+    <section>
+        <h2>Actualizar dirección</h2>
+        
+        <div class="info-box">
+            <strong>⚠️ Nota importante:</strong>
+            <p>Solo puedes actualizar usuarios que TÚ hayas creado (no los predefinidos con ID 1-13).</p>
+            <p><strong>Tu ID de ejemplo:</strong></p>
+            <div class="example-id">
+                ff8081819c5368bb019c8d347f375a0f
+            </div>
+        </div>
+        
+        <p><strong>Pasos para probar:</strong></p>
+        <ol>
+            <li>Usa el ID del usuario que acabas de crear</li>
+            <li>Ingresa una nueva dirección</li>
+            <li>Click en "Actualizar Dirección"</li>
+            <li>Si hay error CORS, prueba en Postman</li>
+        </ol>
+        
+        <form id="updateForm">
+            <div>
+                <label for="updateUserId">ID del usuario:</label>
+                <input type="text" id="updateUserId" placeholder="Ej: ff8081819c5368bb019c8d347f375a0f" required>
+            </div>
+            <div>
+                <label for="newDireccion">Nueva dirección:</label>
+                <input type="text" id="newDireccion" placeholder="Ej: Av. Central 456, San José" required>
+            </div>
+            <button type="submit">Actualizar Dirección</button>
+        </form>
+        
+        <div id="updateResult"></div>
+    </section>
+    
+    <script src="Ejercicio_4.js"></script>
+</body>
+</html>
