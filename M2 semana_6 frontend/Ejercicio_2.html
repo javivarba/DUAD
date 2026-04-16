@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 - Input y Mostrar Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .input-container {
+            margin: 30px 0;
+        }
+        input[type="text"] {
+            padding: 12px;
+            font-size: 16px;
+            width: 300px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 12px 30px;
+            margin-left: 10px;
+            font-size: 16px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0b7dda;
+        }
+        #texto-mostrado {
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 24px;
+            color: #4CAF50;
+            font-weight: bold;
+            min-height: 50px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Captura y Muestra Texto</h1>
+    
+    <div class="input-container">
+        <input type="text" id="input-texto" placeholder="Escribe algo aquí...">
+        <button id="btn-mostrar/borrar">Mostrar/Borrar</button>
+    </div>
+
+    <div id="texto-mostrado">
+        <!-- Aquí se mostrará el texto -->
+    </div>
+
+    <script>
+        // 1. Obtenemos los elementos del DOM
+        const inputTexto = document.getElementById('input-texto');
+        const btnMostrar = document.getElementById('btn-mostrar/borrar');
+        const textoMostrado = document.getElementById('texto-mostrado');
+
+        // 2. Función que captura, muestra y limpia
+        const mostrarTexto = () => {
+            // Obtener el valor del input
+            const texto = inputTexto.value;
+
+            // Mostrar el texto en pantalla (esto reemplaza el contenido anterior)
+            textoMostrado.innerHTML = texto;
+
+            // Limpiar el input
+            inputTexto.value = '';
+        };
+
+        // 3. Agregar el event listener al botón
+        btnMostrar.addEventListener('click', mostrarTexto);
+
+        //  También funciona al presionar Enter
+        inputTexto.addEventListener('keypress', (evento) => {
+            if (evento.key === 'Enter') {
+                mostrarTexto();
+            }
+        });
+    </script>
+</body>
+</html>
